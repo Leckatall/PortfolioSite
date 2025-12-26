@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ProjectCard from "@/components/ProjectCard";
 
 export default function Home() {
   return (
@@ -58,6 +59,16 @@ export default function Home() {
           >
             Documentation
           </a>
+        </div>
+        <div>
+          <ProjectCard title={"ChessTrainer"}
+                       description={"A Cpp/Qt6 application I built for practicing chess openers"}
+                       slug="chessRepertoireTrainer"
+                       githubUrl={"https://github.com/Leckatall/ChessBible"}/>
+          <ProjectCard title={"Blah"}
+                       description={"BlahDescription. more testing data long long long long paragraph but not rly but still a little long ig. idrk define long? It's not a book but it is still pretty long for  a simple description"}
+                       slug="dummy"
+                       githubUrl={"https://github.com/Leckatall/Blah"}/>
         </div>
       </main>
     </div>

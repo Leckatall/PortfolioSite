@@ -16,6 +16,6 @@ export const siteConfig: SiteConfig = {
     ogImage: "https://your-site.com/og.jpg",
     links: {
         twitter: "https://twitter.com/yourusername",
-        github: "https://github.com/yourusername",
+        github: "https://github.com/Leckatall",
     },
 };
