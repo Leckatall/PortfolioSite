@@ -13,10 +13,10 @@ export default function Header() {
           </Link>
           <nav className="flex gap-6">
             <Link
-              href="/hello"
+              href="/projects"
               className="flex items-center text-sm font-medium text-muted-foreground hover:text-primary"
             >
-              Hello
+              Projects
             </Link>
           </nav>
         </div>

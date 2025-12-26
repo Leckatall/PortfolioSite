@@ -4,8 +4,7 @@ import { FaGithub } from 'react-icons/fa'
 interface ProjectCardProps {
     title:  string;
     description: string;
-    slug: string;           // For internal routing (e.g., "chess-engine")
-    githubUrl: string;
+    projectName: string;
     imageUrl?: string;      // Optional project screenshot
     isHighlighted?: boolean;
 }
@@ -13,15 +12,14 @@ interface ProjectCardProps {
 export default function ProjectCard({
                                         title,
                                         description,
-                                        githubUrl,
-                                        slug,
+                                        projectName,
                                         imageUrl,
                                         isHighlighted = false
                                     }:  ProjectCardProps) {
     return (
         <div className={`
       bg-card rounded-xl shadow-md hover:shadow-xl hover:bg-primary-600
-      transition-all duration-300 overflow-hidden border
+      transition-all duration-300 overflow-hidden border m-5
       ${isHighlighted ? 'ring-2 ring-blue-500 border-blue-200' : 'border-gray-200'}
     `}>
             {/* Optional Image */}
@@ -56,7 +54,7 @@ export default function ProjectCard({
                 <div className="flex gap-3">
                     {/* Read More - Internal Link */}
                     <Link
-                        href={`/projects/${slug}`}
+                        href={`/projects/${projectName}`}
                         className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded-lg transition-colors duration-200 font-medium"
                     >
                         Read More
@@ -64,7 +62,7 @@ export default function ProjectCard({
 
                     {/* GitHub Link - External */}
                     <a
-                        href={githubUrl}
+                        href={"https://github.com/Leckatall/" + projectName}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-secondary hover:bg-gray-900 text-white py-2 px-4 rounded-lg transition-colors duration-200 font-medium flex items-center gap-2"
