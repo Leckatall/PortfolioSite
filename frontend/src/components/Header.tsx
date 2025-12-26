@@ -19,6 +19,14 @@ export default function Header() {
               Projects
             </Link>
           </nav>
+          <nav className="flex gap-6">
+            <Link
+                href="/contact"
+                className="flex items-center text-sm font-medium text-muted-foreground hover:text-primary"
+            >
+              Contact
+            </Link>
+          </nav>
         </div>
       </div>
     </header>

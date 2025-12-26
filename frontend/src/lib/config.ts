@@ -4,18 +4,20 @@ export interface SiteConfig {
     url: string;
     ogImage: string;
     links: {
-        twitter: string;
+        linkedin: string;
         github: string;
+        email: string;
     };
 }
 
 export const siteConfig: SiteConfig = {
-    name: "Portfolio Site",
+    name: "P. Campbell Portfolio",
     description: "My personal portfolio built with Next.js",
     url: "https://your-site.com",
     ogImage: "https://your-site.com/og.jpg",
     links: {
-        twitter: "https://twitter.com/yourusername",
+        linkedin: "https://www.linkedin.com/in/patrick-campbell-898015247/",
         github: "https://github.com/Leckatall",
+        email: "PCampbellOfficial@gmail.com"
     },
 };

@@ -1,11 +1,12 @@
-import { notFound } from 'next/navigation';
+import {notFound} from 'next/navigation';
 
 import Link from 'next/link';
-import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from 'react-icons/fa';
+import {FaGithub, FaExternalLinkAlt, FaArrowLeft} from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
 
 interface ProjectDetailProps {
     params:
-        Promise<{projectName: string}>;
+        Promise<{ projectName: string }>;
 }
 
 // This would eventually come from a database/CMS
@@ -13,26 +14,22 @@ async function getProject(projectName: string) {
     const projects = {
         'chess-repo': {
             title: "chessRepo",
-            description: "Advanced C++ chess engine implementing minimax algorithm with alpha-beta pruning.",
-            longDescription: `
-        chessRepo is a sophisticated chess engine written in C++ that implements several advanced algorithms and techniques: 
-        
-        ## Features
-        - **Minimax Algorithm**: Core decision-making algorithm with alpha-beta pruning for optimal performance
-        - **Position Evaluation**:  Advanced board evaluation considering piece values, positioning, and strategic elements
-        - **Opening Book**:  Database of common opening moves for stronger early game play
-        - **Difficulty Scaling**: Adjustable engine strength for different skill levels
-        - **Move Validation**: Comprehensive legal move checking including special moves (castling, en passant)
-        - **Performance Optimization**:  Efficient data structures and algorithms for fast calculation
-        
-        ## Technical Implementation
-        The engine uses bitboard representation for efficient board state management and implements iterative deepening with transposition tables for enhanced performance.
-        
-        ## Challenges Solved
-        - Optimizing search depth vs. calculation time
-        - Implementing complex chess rules accurately
-        - Creating an intuitive difficulty progression
-      `,
+            description: "Desktop application for discovering, saving and training chess openings",
+            longDescription: `# Description
+
+ChessRepo is a fully featured Qt6 desktop application written in C++ that provides people looking to improve at chess a way to discover, save and then practice powerful openings. 
+
+I started this project for my personal use as I found the current available tools clunky and unintegrated while there were great ways of exploring opening data this couldn't be done while providing custom engine analysis. Further these tools for discovering openings were not implemented with easy ways to save and practice the openings you decide to commit to learn.
+
+## Features
+- **Opening Discovery** - Integrated tools to allow you to view the win rates and custom evaluations together to allow you to make an educated choice about your opener
+- **Opening Saving** - These openings that you discover can then be seamlessly saved
+- **Opening Trainer** - After saving your opening(s) of choice you can them with analytics on your learning progression which can then be used to automatically focus on your weaker areas
+
+## Technical Implementation
+- **Optimised C++ Data structures** - Lightweight and efficient data structures are used throughout the program keep the application efficient and responsive even on lower end machines
+- **In Depth Testing** - Tests are integrated throughout my application allowing me to scale and add features while ensuring that previous development remains functional and highlight the precise nature and location of any runtime/logic/compile errors.
+- **Comprehensive Version Control** - While this was a solo project and thus version control wasn't necessary for collaboration. I practiced and developed good version control conventions which enabled me to see when and where errors were introduced and enforce a modular and scalable development pattern that meant my application remained easy to parse and further develop after taking long breaks even as it grew.`,
             technologies: ["C++", "CMake", "Chess Algorithms", "Game Theory", "Bitboards"],
             githubUrl: "https://github.com/Leckatall/chessRepo",
             liveUrl: null,
@@ -73,7 +70,7 @@ async function getProject(projectName: string) {
     return projects[projectName as keyof typeof projects] || null;
 }
 
-export default async function ProjectDetailPage({ params }: ProjectDetailProps) {
+export default async function ProjectDetailPage({params}: ProjectDetailProps) {
     const project = await getProject((await params).projectName);
     console.log(project);
 
@@ -88,7 +85,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
                 href="/projects"
                 className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors"
             >
-                <FaArrowLeft className="w-4 h-4" />
+                <FaArrowLeft className="w-4 h-4"/>
                 Back to Projects
             </Link>
 
@@ -109,7 +106,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
                         rel="noopener noreferrer"
                         className="bg-primary hover:bg-primary-600 text-primary-foreground px-6 py-3 rounded-lg flex items-center gap-2 transition-colors"
                     >
-                        <FaGithub className="w-5 h-5" />
+                        <FaGithub className="w-5 h-5"/>
                         View Source
                     </a>
 
@@ -120,7 +117,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
                             rel="noopener noreferrer"
                             className="bg-secondary hover:bg-secondary-600 text-secondary-foreground px-6 py-3 rounded-lg flex items-center gap-2 transition-colors"
                         >
-                            <FaExternalLinkAlt className="w-4 h-4" />
+                            <FaExternalLinkAlt className="w-4 h-4"/>
                             Live Demo
                         </a>
                     )}
@@ -147,11 +144,9 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
             <div className="grid md:grid-cols-3 gap-8">
                 {/* Main Content */}
                 <div className="md:col-span-2">
+
                     <div className="prose prose-lg max-w-none">
-                        <div
-                            className="text-foreground"
-                            dangerouslySetInnerHTML={{ __html: project. longDescription. replace(/\n/g, '<br/>') }}
-                        />
+                        <ReactMarkdown children={project.longDescription}/>
                     </div>
                 </div>
 
@@ -211,7 +206,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
 }
 
 // Generate metadata for SEO
-export async function generateMetadata({ params }: ProjectDetailProps) {
+export async function generateMetadata({params}: ProjectDetailProps) {
     const project = await getProject((await params).projectName);
 
     if (!project) {
