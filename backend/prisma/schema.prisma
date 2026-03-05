@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model File {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  link String
+
+  thumbnailOf   Project?    @relation("Thumbnail")
+  descriptionOf Project?    @relation("Description")
+  assetFiles    AssetFile[]
+}
+
+model Project {
+  id            Int         @id @default(autoincrement())
+  title         String
+  subTitle      String?
+  thumbnailId   Int?        @unique
+  thumbnail     File?       @relation("Thumbnail", fields: [thumbnailId], references: [id], onDelete: SetNull)
+  descriptionId Int?        @unique
+  description   File?       @relation("Description", fields: [descriptionId], references: [id], onDelete: SetNull)
+  published     Boolean     @default(false)
+  assetFiles    AssetFile[]
+}
+
+model AssetFile {
+  id        Int     @id @default(autoincrement())
+  assetName String  @unique
+  projectId Int
+  fileId    Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  file      File    @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, fileId]) // Ensure each project-file pair is unique
+}
+
+model User {
+  id               Int       @id @default(autoincrement())
+  email            String    @unique
+  name             String
+  messagesSent     Message[] @relation("Sender")
+  messagesReceived Message[] @relation("Receiver")
+  createdAt        DateTime  @default(now())
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  content    String
+  senderId   Int
+  receiverId Int      @default(0)
+  sender     User     @relation("Sender", fields: [senderId], references: [id])
+  receiver   User     @relation("Receiver", fields: [receiverId], references: [id])
+  sentAt     DateTime @default(now())
+}

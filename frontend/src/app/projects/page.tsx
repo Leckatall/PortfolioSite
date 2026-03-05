@@ -1,4 +1,5 @@
 import ProjectCard from "@/components/ProjectCard";
+import Link from "next/link";
 
 interface Project {
     title: string;
@@ -42,6 +43,7 @@ export default function ProjectsPage() {
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                     A collection of projects showcasing my skills in C++, Python, and full-stack web development.
                 </p>
+                <Link href={"projects/create"}>Add New Project</Link>
             </div>
 
             {/* Featured Projects */}
